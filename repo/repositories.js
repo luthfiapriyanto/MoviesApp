@@ -1,5 +1,3 @@
-//const uuidV1 = require('uuid/v1');
-
 const asPromise = (error, result) => {
     return new Promise((resolve, reject) => {
         setTimeout(function () {
@@ -18,10 +16,11 @@ mongoose.Promise = Promise;
 
 var Schema = mongoose.Schema;
 var movieSchema = new Schema({
-    id: String,
+    _id: String,
     movieName: String,
     movieImage: String,
-    rating: Number
+    rating: Number,
+    longDesc: String
 });
 var Movie = mongoose.model('Movie', movieSchema);
 module.exports = Movie;
@@ -33,27 +32,36 @@ module.exports = class MovieRepo {
     }
 
     getMovie(id){
-        const productFound = this.product.find(product => product._id == id);
-        return asPromise(null, productFound)
+        const movieFound = Movie.findById(id);
+        return movieFound;
+    }
+
+    searchMovie(query){
+        /// find all athletes that play tennis
+        var query = Movie.find({movieName: query }).exec();
+        return query;
+        return asPromise;
+
     }
 
     addMovie(newMovie){
         const movieToAdd = new Movie({
-            id: newMovie.id,
+            _id: newMovie.id,
             movieName: newMovie.movieName,
             movieImage: newMovie.movieImage,
-            rating: newMovie.rating
+            rating: newMovie.rating,
+            longDesc: newMovie.longDesc
         });
 
         movieToAdd.save(function(err){
             if ( err ) throw err;
             console.log("Saved Successfully");
         });
-        return asPromise(null, {id});
+        return asPromise();
     }
 
     removeMovie(id){
-        Movie.remove({rating:{$eq: id}}).exec();
+        Movie.remove({_id:{$eq: id}}).exec();
         return asPromise();
     }
 };

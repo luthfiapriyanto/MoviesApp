@@ -1,5 +1,6 @@
 const Hapi = require('hapi');
 const configureRoutes = require('./route');
+var swaggerJSDoc = require('swagger-jsdoc');
 
 const hostname = 'localhost';
 const port = 3000;
@@ -11,6 +12,7 @@ server.connection({
 })
 
 let options = {
+
     reporters: {
         consoleReporter: [{
             module: 'good-console',

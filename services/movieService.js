@@ -1,11 +1,10 @@
 const toMovie = (presistedMovie) =>{
 	if(presistedMovie){
 		return{
-			id: presistedMovie.id,
+			id: presistedMovie._id,
 			movieName: presistedMovie.movieName,
 			movieImage: presistedMovie.movieImage,
-			rating: presistedMovie.rating
-
+			rating: presistedMovie.rating,
 		};
 	}else{
 		throw {
@@ -34,7 +33,8 @@ const createMovie = (movie, save) => {
     	id: movie.id,
         movieName: movie.movieName,
         movieImage: movie.movieImage,
-        rating: movie.rating
+        rating: movie.rating,
+        longDesc: movie.longDesc
     };
     return save(newMovie)
 };

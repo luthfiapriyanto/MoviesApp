@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/luthfiapriyanto/MoviesApp/issues"
   },
-  "homepage": "https://github.com/luthfiapriyanto/MoviesApp#readme"
+  "homepage": "https://github.com/luthfiapriyanto/MoviesApp#readme",
+  "dependencies": {
+    "swagger-jsdoc": "^1.3.0"
+  }
 }
