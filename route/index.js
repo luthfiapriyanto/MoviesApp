@@ -21,6 +21,11 @@ const configureRoutes = () => {
             method: 'DELETE',
             path: '/movies/{id}',
             handler: controller.deleteMovie
+        },
+        {
+        	method: 'GET',
+        	path: '/movies/search/{query}',
+        	handler: controller.searchMovie
         }
 	]
 };

@@ -1,14 +1,4 @@
-const asPromise = (error, result) => {
-    return new Promise((resolve, reject) => {
-        setTimeout(function () {
-            if(error){
-                reject(error)
-            }else{
-                resolve(result)
-            }
-        }, 1);
-    });
-};
+const { asPromise } = require('../utils');
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/movieapp')
@@ -38,7 +28,7 @@ module.exports = class MovieRepo {
 
     searchMovie(query){
         /// find all athletes that play tennis
-        var query = Movie.find({movieName: query }).exec();
+        var query = Movie.find({ 'movieName': query }).exec();
         return query;
         return asPromise;
 
