@@ -1,0 +1,178 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Movies Database API
+# during dev, should point to your local machine
+host: localhost:3000
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /movies:
+    # our controller name
+    x-swagger-router-controller: movies
+    get:
+      operationId: getAll
+      description: get the movies list
+      # define the type of response for Success "200" and Error
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetMoviesListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      operationId: save
+      description: add a new movie to the list
+      # movie info to be stored
+      parameters:
+        - name: title
+          description: Movie properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Movie"
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /movie/{id}:
+    # our controller name
+    x-swagger-router-controller: movie
+    get:
+      operationId: getOne
+      description: get a movie
+      # define the type of response for Success "200" and Error
+      parameters:
+        - name: id
+          type: string
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetMovieResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    delete:
+      operationId: delMovie
+      description: delete a movie
+      # define the parameters
+      parameters:
+        - name: id
+          description: Movie id
+          type: string
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"  
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  # GET /movie successful response
+  GetMoviesListResponse:
+    required:
+      - id
+      - movieName
+      - movieImage
+      - rating
+    properties:
+            id:
+              type: string
+            movieName:
+              type: string
+            movieImage:
+              type: string
+            rating:
+              type: number
+  GetMovieResponse:
+    required:
+      - id
+      - movieName
+      - movieImage
+      - rating
+      - longDesc
+    properties:
+      id:
+        type: string
+      movieName: 
+        type: string
+      movieImage:
+        type: string
+      rating:
+        type: number
+      longDesc:
+        type: string
+  Movie:
+    type: object
+    properties:
+      id:
+        type: string
+        description: movie id
+      movieName:
+        type: string
+        description: movie name
+      movieImage:
+        type: string
+        description: movie image
+      rating:
+        type: number
+        description: rating of movie
+      longDesc:
+        type: string
+        description: description of movie
+    required:
+      - id
+      - movieName
+      - movieImage
+      - rating
+      - longDesc
+  GeneralResponse:
+    type: object
+    properties:
+      success:
+        type: number
+        description: returns 1 if successful
+      description:
+        type: string
+        description: a short comment 
+    required:
+      - success
+      - description
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string

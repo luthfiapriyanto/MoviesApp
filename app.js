@@ -30,7 +30,7 @@ server.register({ register: require('good'), options }, err => {
 
         const routes = configureRoutes();
         server.route(routes);
-        server.start();
+        server.start(() => console.log(`Server running at :${port}`));
     }
 });
 

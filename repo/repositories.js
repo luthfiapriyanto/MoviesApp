@@ -27,8 +27,8 @@ module.exports = class MovieRepo {
     }
 
     searchMovie(query){
-        /// find all athletes that play tennis
         var query = Movie.find({ 'movieName': query }).exec();
+        console.log(query)
         return query;
         return asPromise;
 
@@ -51,7 +51,7 @@ module.exports = class MovieRepo {
     }
 
     removeMovie(id){
-        Movie.remove({_id:{$eq: id}}).exec();
+        Movie.remove({movieName:{$eq: id}}).exec();
         return asPromise();
     }
 };
