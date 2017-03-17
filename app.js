@@ -1,5 +1,5 @@
 const Hapi = require('hapi');
-const configureRoutes = require('./route');
+const configureRoutes = require('./src/route');
 var swaggerJSDoc = require('swagger-jsdoc');
 
 //const hostname = 'localhost';
