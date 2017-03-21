@@ -1,13 +1,13 @@
 const Hapi = require('hapi');
-const configureRoutes = require('./route');
-var swaggerJSDoc = require('swagger-jsdoc');
+const configureRoutes = require('./src/route');
 
-const hostname = 'localhost';
+const hostname = '0.0.0.0';
 const port = 3000;
 
 const server = new Hapi.Server();
+
 server.connection({
-	host: hostname,
+    host: hostname,
 	port: port
 })
 
@@ -25,8 +25,11 @@ server.register({ register: require('good'), options }, err => {
     if(err){
         server.error(`error`);
     } else {
+
         const routes = configureRoutes();
         server.route(routes);
-        server.start(() => console.log(`Server running at ${hostname}:${port}`));
+        server.start(() => console.log(`Server running at :${port}`));
     }
 });
+
+module.exports = server;
